@@ -1,0 +1,45 @@
+<div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mt-5 mb-4">
+  <h2>Gastos</h2>
+  <div class="d-flex align-items-center flex-wrap gap-3 gap-sm-5">
+    <p class="m-0">Total Gastado: <span class="fw-bold ms-l"><i class="ri-arrow-down-s-fill text-danger"></i>{{total | currency}}</span></p>
+    <a routerLink="/gastos/nuevo" class="btn btn-primary">Agregar Gasto</a>
+  </div>
+</div>
+
+<div class="table-responsive mb-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Dascripcion</th>
+        <th scope="col" width="180">Fecha de gasto</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="gastos.length; else emptyMessage">
+        <tr *ngFor="let gasto of gastos">
+          <td>{{ gasto.id }}</td>
+          <td>{{ gasto.tipo }}</td>
+          <td>{{ gasto.monto | currency }}</td>
+          <td>{{ gasto.descripcion }}</td>
+          <td>{{ gasto.fecha_gasto | date: 'dd/MM/Y'}}</td>
+          <td>
+            <div>
+              <a [routerLink]="['/gastos', gasto.id, 'editar']"><i class="ri-edit-box-line"></i></a>
+              <button class="btn-link p-0"><i class="ri-delete-bin-2-line"></i></button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-template #emptyMessage>
+        <tr>
+          <td colspan="6"> No hay Datos para mostrar</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
